@@ -4,7 +4,7 @@ import React from 'react'
 type CustomButtonProps = {
     title: string;
     handlePress: () => void;
-    containerStyles: any;
+    containerStyles?: any;
     textStyles?: any;
     isLoading?: boolean;
 };
