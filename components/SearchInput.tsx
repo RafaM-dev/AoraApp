@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 import { icons } from "../constants"
 
-const SearchInput = ({ title, value, placeholder, handleChangeText, otherStyles, keyBoardType, ...props }: { title: string, value: string, placeholder?: string, handleChangeText: (text: string) => void, otherStyles?: any, props?: any, keyBoardType?: any }) => {
+const SearchInput = ({ title, value, placeholder, handleChangeText, otherStyles, keyBoardType, ...props }: { title?: string, value?: string, placeholder?: string, handleChangeText?: (text: string) => void, otherStyles?: any, props?: any, keyBoardType?: any }) => {
 
     const [showPassword, setShowPassword] = useState(false)
 
