@@ -9,11 +9,26 @@ import { RefreshControl } from 'react-native'
 import useAppWrite from '@/lib/useAppWrite'
 import { getAllPosts, getLastestPost } from '@/lib/appwrite'
 import VideoCard from '@/components/VideoCard'
+import { useGlobalContext } from '@/context/GlobalProvider'
+interface User {
+    id: string;
+    avatar: string;
+    username: string;
+    $id: string; // Add the $id property
+}
 
+interface GlobalContextType {
+    isLoggedIn: boolean;
+    user: User | null;
+    setUser: (user: any) => void;
+    isLoading: boolean;
+    setIsLoggedIn: (isLoggedIn: boolean) => void;
+}
 const Home = () => {
 
     const { data: posts, refetch } = useAppWrite(getAllPosts)
     const { data: latestPost } = useAppWrite(getLastestPost)
+    const { user, setUser, setIsLoggedIn } = useGlobalContext() as GlobalContextType;
     const [refreshing, setRefreshing] = useState(false)
 
     const onRefresh = async () => {
@@ -41,7 +56,7 @@ const Home = () => {
                                     Welcome back
                                 </Text>
                                 <Text className='text-2xl font-psemibold text-white'>
-                                    RmDev
+                                    {user?.username}
                                 </Text>
                             </View>
                             <View className='mt-1.5'>

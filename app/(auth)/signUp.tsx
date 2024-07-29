@@ -7,8 +7,25 @@ import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
 import { Link, router } from 'expo-router'
 import { createUser } from '../../lib/appwrite'
+import { useGlobalContext } from '@/context/GlobalProvider'
+
+interface User {
+  id: string;
+  avatar: string;
+  username: string;
+  $id: string; // Add the $id property
+}
+
+interface GlobalContextType {
+  isLoggedIn: boolean;
+  user: User | null;
+  setUser: (user: any) => void;
+  isLoading: boolean;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
+}
 
 const SignUp = () => {
+  const { user, setUser, setIsLoggedIn } = useGlobalContext() as GlobalContextType;
   const [form, setForm] = useState({
     username: '',
     email: '',
@@ -29,7 +46,8 @@ const SignUp = () => {
         form.password,
         form.username
       )
-      //set it to global context
+      setUser(result);
+      setIsLoggedIn(true);
       router.replace('/home')
     } catch (error: any) {
       Alert.alert('Error', error.message)
